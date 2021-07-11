@@ -4,7 +4,6 @@
       <div id="nav" class="col">
         <router-link to="/">Kanye</router-link> |
         <router-link to="/trump">Trump</router-link> |
-        <router-link to="/chucknorris">Chuck Norris</router-link> |
         <router-link to="/ron">Ron Swanson</router-link> |
         <router-link to="/brittney">Brittney</router-link>
       </div>
@@ -12,7 +11,7 @@
         <button class="btn btn-info" @click="getQuote">New Quote</button>
       </div>
     </div>
-    <div class="row pb-4" v-if="isMobile">
+    <div class="row mb-4" v-if="isMobile">
       <div class="col">
         <button class="btn btn-info" @click="getQuote">New Quote</button>
       </div>
@@ -51,12 +50,13 @@ export default {
       return this.$router.options.history.location;
     },
     isMobile() {
-      return this.windowWidth < 600;
+      return this.windowWidth < 550;
     }
   },
   methods: {
     onResize() {
       this.windowWidth = window.innerWidth;
+      this.$store.dispatch("screenSize", this.windowWidth);
     },
     bQuote() {
       axios
@@ -127,7 +127,6 @@ export default {
 
 #pod {
   padding: 0px;
-  max-height: 1000px;
   min-height: 700px;
   background-position: center;
   background-repeat: no-repeat;
