@@ -4,7 +4,7 @@
       <div id="nav" class="col">
         <router-link to="/">Kanye</router-link> |
         <router-link to="/trump">Trump</router-link> |
-
+        <router-link to="/chucknorris">Chuck Norris</router-link> |
         <router-link to="/brittney">Brittney</router-link>
       </div>
       <div class="col">
@@ -58,6 +58,13 @@ export default {
         this.$store.commit("setQuote", this.quote);
       });
     },
+    chuckQuote() {
+      axios.get("https://api.chucknorris.io/jokes/random").then(res => {
+        this.quote = res.data.value;
+        alert(JSON.stringify(res.data.value));
+        this.$store.commit("setQuote", this.quote);
+      });
+    },
     async getQuote() {
       if (this.$router.options.history.location === "/") {
         this.kanyeQuote();
@@ -67,6 +74,9 @@ export default {
       }
       if (this.$router.options.history.location === "/trump") {
         this.trumpQuote();
+      }
+      if (this.$router.options.history.location === "/chucknorris") {
+        this.chuckQuote();
       }
     }
   }
