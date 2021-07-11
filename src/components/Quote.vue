@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 450px; max-width: 800px;">
+  <div style="min-height: 450px; max-width: 800px;" class="m-3">
     <div class="kanye">
       <div class="bit"></div>
       <h2 style="color: white;">"{{ quote }}"</h2>

@@ -8,6 +8,11 @@
         <router-link to="/ron">Ron Swanson</router-link> |
         <router-link to="/brittney">Brittney</router-link>
       </div>
+      <div class="col" v-if="!isMobile">
+        <button class="btn btn-info" @click="getQuote">New Quote</button>
+      </div>
+    </div>
+    <div class="row pb-4" v-if="isMobile">
       <div class="col">
         <button class="btn btn-info" @click="getQuote">New Quote</button>
       </div>
@@ -26,8 +31,17 @@ import KanyeAPI from "./services/KanyeAPI";
 export default {
   data() {
     return {
-      quote: null
+      quote: null,
+      windowWidth: window.innerWidth
     };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("resize", this.onResize);
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   },
   computed: {
     image() {
@@ -35,9 +49,15 @@ export default {
     },
     router() {
       return this.$router.options.history.location;
+    },
+    isMobile() {
+      return this.windowWidth < 600;
     }
   },
   methods: {
+    onResize() {
+      this.windowWidth = window.innerWidth;
+    },
     bQuote() {
       axios
         .get(
