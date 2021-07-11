@@ -9,7 +9,9 @@
       <div style="margin: auto">
         <quote
           :quote="quote"
-          :bg="'https://wallpaper.dog/large/17024356.jpg'"
+          :bg="
+            'https://s3.amazonaws.com/appforest_uf/f1626027494983x191932590494022100/britnney.png'
+          "
         ></quote>
       </div>
     </div>
@@ -18,24 +20,31 @@
 
 <script>
 import axios from "axios";
-import KanyeAPI from "../services/KanyeAPI";
 import Quote from "../components/Quote.vue";
+
 export default {
   components: { Quote },
+
   data() {
     return {
       quote: null
     };
   },
   methods: {
-    async loadQuote() {
-      const response = await KanyeAPI.getQuote();
-      this.quote = await response.data.quote;
+    loadQuote() {
+      axios
+        .get(
+          "https://raw.githubusercontent.com/andrewnashed/britney.rest/main/quotes.json"
+        )
+        .then(res => {
+          console.log(res.data);
+          this.quote = res.data[Math.floor(Math.random() * res.data.length)];
+        });
     }
   },
 
-  created() {
-    this.loadQuote();
+  async created() {
+    await this.loadQuote();
   }
 };
 </script>
