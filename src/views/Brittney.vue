@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div>
-      <p>
-        <button @click="loadQuote">New Quote</button>
-      </p>
-    </div>
-    <div style="display: flex">
+    <div style="display: flex; padding-top: 25px">
       <div style="margin: auto">
         <quote
           :quote="quote"
@@ -39,11 +34,17 @@ export default {
         .then(res => {
           console.log(res.data);
           this.quote = res.data[Math.floor(Math.random() * res.data.length)];
+          this.$store.commit("setQuote", this.quote);
         });
     }
   },
 
   async created() {
+    await this.$store.commit(
+      "setBg",
+      "https://s3.amazonaws.com/appforest_uf/f1626027417836x184236236419908160/britnney.png"
+    );
+
     await this.loadQuote();
   }
 };
