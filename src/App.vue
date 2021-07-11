@@ -5,6 +5,7 @@
         <router-link to="/">Kanye</router-link> |
         <router-link to="/trump">Trump</router-link> |
         <router-link to="/chucknorris">Chuck Norris</router-link> |
+        <router-link to="/ron">Ron Swanson</router-link> |
         <router-link to="/brittney">Brittney</router-link>
       </div>
       <div class="col">
@@ -61,11 +62,21 @@ export default {
     chuckQuote() {
       axios.get("https://api.chucknorris.io/jokes/random").then(res => {
         this.quote = res.data.value;
-        alert(JSON.stringify(res.data.value));
         this.$store.commit("setQuote", this.quote);
       });
     },
-    async getQuote() {
+    ronQuote() {
+      axios
+        .get("https://ron-swanson-quotes.herokuapp.com/v2/quotes")
+        .then(res => {
+          this.quote = res.data[0];
+          this.$store.commit("setQuote", this.quote);
+        });
+    },
+    getQuote() {
+      if (this.$router.options.history.location === "/ron") {
+        this.ronQuote();
+      }
       if (this.$router.options.history.location === "/") {
         this.kanyeQuote();
       }
@@ -79,6 +90,9 @@ export default {
         this.chuckQuote();
       }
     }
+  },
+  created() {
+    //this.getQuote();
   }
 };
 </script>
