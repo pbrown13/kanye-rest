@@ -4,7 +4,8 @@ export default createStore({
   state: {
     backgroundImage: "https://wallpaper.dog/large/17024356.jpg",
     quote: null,
-    isMobile: null
+    isMobile: null,
+    window: null
   },
   mutations: {
     setBg(state, payload) {
@@ -15,10 +16,14 @@ export default createStore({
     },
     setScreen(state, payload) {
       state.isMobile = payload;
+    },
+    setWindow(state, payload) {
+      state.window = payload;
     }
   },
   actions: {
     screenSize({ state, commit }, windowWidth) {
+      commit("setWindow", windowWidth);
       const payload = windowWidth < 550;
       commit("setScreen", payload);
     }

@@ -34,14 +34,21 @@ export default {
       });
     }
   },
-
   async created() {
-    await this.$store.commit(
-      "setBg",
-      "https://s3.amazonaws.com/appforest_uf/f1626029403472x536392744604647900/download%20%281%29.jpeg"
-    );
+    const payload = this.$store.state.isMobile
+      ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnzC1zC7o6FsrgsdsktnKjJ_SUH38x02AE4A&usqp=CAU"
+      : "https://s3.amazonaws.com/appforest_uf/f1626029161319x736406629259311900/images.jpeg";
+
+    await this.$store.commit("setBg", payload);
 
     await this.loadQuote();
+    // async created() {
+    //   await this.$store.commit(
+    //     "setBg",
+    //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnzC1zC7o6FsrgsdsktnKjJ_SUH38x02AE4A&usqp=CAU"
+    //   );
+    //
+    //   await this.loadQuote();
   }
 };
 </script>

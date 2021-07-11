@@ -53,6 +53,11 @@ export default {
       return this.windowWidth < 550;
     }
   },
+  watch: {
+    windowHeight(newWidth, oldWidth) {
+      //this.$store.dispatch("screenSize", newWidth);
+    }
+  },
   methods: {
     onResize() {
       this.windowWidth = window.innerWidth;
@@ -112,6 +117,7 @@ export default {
     }
   },
   created() {
+    this.onResize();
     //this.getQuote();
   }
 };
